@@ -1,0 +1,1020 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <!-- Pace -->
+    <link rel="stylesheet" href="../../plugins/pace-master/themes/blue/pace-theme-flash.css">
+    <script type="text/javascript" src="../../plugins/pace-master/pace.min.js"></script>
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="../../dist/css/ionicons.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="../../plugins/datatables/dataTables.bootstrap.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../../css/backend.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="../../css/skins/_all-skins.css">
+    <link href="../../libs/bootstrap-table/dist/bootstrap-table.css"/>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="../plugins/ie9/html5shiv.min.js"></script>
+    <script src="../plugins/ie9/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body class="inside-header inside-aside ">
+<div id="main" role="main">
+    <div class="tab-content tab-addtabs">
+        <div id="content">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <section class="content-header hide">
+                        <h1>
+                            控制台                                    <small>Control panel</small>
+                        </h1>
+                    </section>
+                    <!-- RIBBON -->
+                    <div id="ribbon">
+                        <ol class="breadcrumb pull-left">
+                            <li><a href="dashboard" class="addtabsit"><i class="fa fa-dashboard"></i> 控制台</a></li>
+                        </ol>
+                        <ol class="breadcrumb pull-right">
+                            <li><a href="javascript:;" data-url="/admin/general.config/general">常规管理</a></li>
+                            <li><a href="javascript:;" data-url="/admin/general/config">系统配置</a></li>
+                        </ol>
+                    </div>
+                    <!-- END RIBBON -->
+                    <div class="content">
+                        <style type="text/css">
+                            @media (max-width: 375px) {
+                                .edit-form tr td input{width:100%;}
+                                .edit-form tr th:first-child,.edit-form tr td:first-child{
+                                    width:20%;
+                                }
+                                .edit-form tr th:last-child,.edit-form tr td:last-child{
+                                    display: none;
+                                }
+                            }
+                        </style>
+                        <div class="panel panel-default panel-intro">
+                            <div class="panel-heading">
+                                <div class="panel-lead"><em>系统配置</em>可以在此增改系统的变量和分组,也可以自定义分组和变量,如果需要删除请从数据库中删除</div>        <ul class="nav nav-tabs">
+
+                                <li class="active"><a href="#basic" data-toggle="tab">基础配置</a></li>
+
+                                <li class=""><a href="#email" data-toggle="tab">邮件配置</a></li>
+
+                                <li class=""><a href="#dictionary" data-toggle="tab">字典配置</a></li>
+
+                                <li class=""><a href="#user" data-toggle="tab">会员配置</a></li>
+
+                                <li class=""><a href="#example" data-toggle="tab">示例分组</a></li>
+                                <li>
+                                    <a href="#addcfg" data-toggle="tab"><i class="fa fa-plus"></i></a>
+                                </li>
+                            </ul>
+                            </div>
+
+                            <div class="panel-body">
+                                <div id="myTabContent" class="tab-content">
+
+                                    <div class="tab-pane fade active in" id="basic">
+                                        <div class="widget-body no-padding">
+                                            <form id="basic-form" class="edit-form form-horizontal" role="form" data-toggle="validator" method="POST" action="/admin/general.config/edit">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                    <tr>
+                                                        <th width="15%">变量标题</th>
+                                                        <th width="70%">变量值</th>
+                                                        <th width="15%">变量名</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>站点名称</td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-sm-8 col-xs-12">
+                                                                    <input type="text" name="row[name]" value="测试系统" class="form-control" data-rule="required" data-tip="请填写站点名称"  />
+                                                                </div>
+                                                                <div class="col-sm-4"></div>
+                                                            </div>
+
+                                                        </td>
+                                                        <td>{$site.name}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>备案号</td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-sm-8 col-xs-12">
+                                                                    <input type="text" name="row[beian]" value="" class="form-control" data-rule="" data-tip="粤ICP备15054802号-4"  />
+                                                                </div>
+                                                                <div class="col-sm-4"></div>
+                                                            </div>
+
+                                                        </td>
+                                                        <td>{$site.beian}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>CDN地址</td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-sm-8 col-xs-12">
+                                                                    <input type="text" name="row[cdnurl]" value="http://cdn.demo.fastadmin.net" class="form-control" data-rule="" data-tip="如果静态资源使用第三方云储存请配置该值"  />
+                                                                </div>
+                                                                <div class="col-sm-4"></div>
+                                                            </div>
+
+                                                        </td>
+                                                        <td>{$site.cdnurl}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>版本号</td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-sm-8 col-xs-12">
+                                                                    <input type="text" name="row[version]" value="1.0.1" class="form-control" data-rule="required" data-tip="如果静态资源有变动请重新配置该值"  />
+                                                                </div>
+                                                                <div class="col-sm-4"></div>
+                                                            </div>
+
+                                                        </td>
+                                                        <td>{$site.version}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>时区</td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-sm-8 col-xs-12">
+                                                                    <input type="text" name="row[timezone]" value="Asia/Shanghai" class="form-control" data-rule="required" data-tip=""  />
+                                                                </div>
+                                                                <div class="col-sm-4"></div>
+                                                            </div>
+
+                                                        </td>
+                                                        <td>{$site.timezone}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>禁止IP</td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-sm-8 col-xs-12">
+                                                                    <textarea name="row[forbiddenip]" class="form-control" data-rule="" rows="5" data-tip="一行一条记录" ></textarea>
+                                                                </div>
+                                                                <div class="col-sm-4"></div>
+                                                            </div>
+
+                                                        </td>
+                                                        <td>{$site.forbiddenip}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>语言</td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-sm-8 col-xs-12">
+                                                                    <dl class="fieldlist" rel="3" data-name="row[languages]">
+                                                                        <dd>
+                                                                            <ins>键名</ins>
+                                                                            <ins>键值</ins>
+                                                                        </dd>
+                                                                        <dd class="form-inline">
+                                                                            <input type="text" name="row[languages][field][backend]" class="form-control" value="backend" size="10" />
+                                                                            <input type="text" name="row[languages][value][backend]" class="form-control" value="zh-cn" size="40" />
+                                                                            <span class="btn btn-sm btn-danger btn-remove"><i class="fa fa-times"></i></span>
+                                                                            <span class="btn btn-sm btn-primary btn-dragsort"><i class="fa fa-arrows"></i></span>
+                                                                        </dd>
+                                                                        <dd class="form-inline">
+                                                                            <input type="text" name="row[languages][field][frontend]" class="form-control" value="frontend" size="10" />
+                                                                            <input type="text" name="row[languages][value][frontend]" class="form-control" value="zh-cn" size="40" />
+                                                                            <span class="btn btn-sm btn-danger btn-remove"><i class="fa fa-times"></i></span>
+                                                                            <span class="btn btn-sm btn-primary btn-dragsort"><i class="fa fa-arrows"></i></span>
+                                                                        </dd>
+                                                                        <dd class="form-inline">
+                                                                            <input type="text" name="row[languages][field][en]" class="form-control" value="en" size="10" />
+                                                                            <input type="text" name="row[languages][value][en]" class="form-control" value="en" size="40" />
+                                                                            <span class="btn btn-sm btn-danger btn-remove"><i class="fa fa-times"></i></span>
+                                                                            <span class="btn btn-sm btn-primary btn-dragsort"><i class="fa fa-arrows"></i></span>
+                                                                        </dd>
+                                                                        <dd><a href="javascript:;" class="append btn btn-sm btn-success"><i class="fa fa-plus"></i> 追加</a></dd>
+                                                                    </dl>
+                                                                </div>
+                                                                <div class="col-sm-4"></div>
+                                                            </div>
+
+                                                        </td>
+                                                        <td>{$site.languages}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>后台固定页</td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-sm-8 col-xs-12">
+                                                                    <input type="text" name="row[fixedpage]" value="dashboard" class="form-control" data-rule="required" data-tip="请尽量输入左侧菜单栏存在的链接"  />
+                                                                </div>
+                                                                <div class="col-sm-4"></div>
+                                                            </div>
+
+                                                        </td>
+                                                        <td>{$site.fixedpage}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>43</td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-sm-8 col-xs-12">
+                                                                    <textarea name="row[dfsf]" class="form-control" data-rule="43" rows="5" data-tip="43" 43>43</textarea>
+                                                                </div>
+                                                                <div class="col-sm-4"></div>
+                                                            </div>
+
+                                                        </td>
+                                                        <td>{$site.dfsf}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>testimg</td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-sm-8 col-xs-12">
+                                                                    <div class="form-inline">
+                                                                        <input id="c-testimg" class="form-control" size="50" name="row[testimg]" type="text" value="" data-tip="">
+                                                                        <span><button type="button" id="plupload-testimg" class="btn btn-danger plupload" data-input-id="c-testimg" data-mimetype="image/*" data-multiple="false" data-preview-id="p-testimg"><i class="fa fa-upload"></i> 上传</button></span>
+                                                                        <span><button type="button" id="fachoose-testimg" class="btn btn-primary fachoose" data-input-id="c-testimg" data-mimetype="image/*" data-multiple="false"><i class="fa fa-list"></i> 选择</button></span>
+                                                                        <ul class="row list-inline plupload-preview" id="p-testimg"></ul>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-4"></div>
+                                                            </div>
+
+                                                        </td>
+                                                        <td>{$site.testimg}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>现场自行车</td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-sm-8 col-xs-12">
+                                                                    <div class="form-inline">
+                                                                        <input id="c-不出那种" class="form-control" size="50" name="row[不出那种]" type="text" value="" data-tip="">
+                                                                        <span><button type="button" id="plupload-不出那种" class="btn btn-danger plupload" data-input-id="c-不出那种" data-mimetype="image/*" data-multiple="false" data-preview-id="p-不出那种"><i class="fa fa-upload"></i> 上传</button></span>
+                                                                        <span><button type="button" id="fachoose-不出那种" class="btn btn-primary fachoose" data-input-id="c-不出那种" data-mimetype="image/*" data-multiple="false"><i class="fa fa-list"></i> 选择</button></span>
+                                                                        <ul class="row list-inline plupload-preview" id="p-不出那种"></ul>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-4"></div>
+                                                            </div>
+
+                                                        </td>
+                                                        <td>{$site.不出那种}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>重新注册</td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-sm-8 col-xs-12">
+                                                                    <div class="form-inline">
+                                                                        <input id="c-参数行政村" class="form-control" size="50" name="row[参数行政村]" type="text" value="" data-tip="">
+                                                                        <span><button type="button" id="plupload-参数行政村" class="btn btn-danger plupload" data-input-id="c-参数行政村" data-mimetype="image/*" data-multiple="true" data-preview-id="p-参数行政村"><i class="fa fa-upload"></i> 上传</button></span>
+                                                                        <span><button type="button" id="fachoose-参数行政村" class="btn btn-primary fachoose" data-input-id="c-参数行政村" data-mimetype="image/*" data-multiple="true"><i class="fa fa-list"></i> 选择</button></span>
+                                                                        <ul class="row list-inline plupload-preview" id="p-参数行政村"></ul>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-4"></div>
+                                                            </div>
+
+                                                        </td>
+                                                        <td>{$site.参数行政村}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>tetetet</td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-sm-8 col-xs-12">
+                                                                    <input type="text" name="row[test]" value="" class="form-control" data-rule="" data-tip=""  />
+                                                                </div>
+                                                                <div class="col-sm-4"></div>
+                                                            </div>
+
+                                                        </td>
+                                                        <td>{$site.test}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>tttt</td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-sm-8 col-xs-12">
+                                                                    <input type="text" name="row[ttt]" value="ttt" class="form-control" data-rule="" data-tip="ttt"  />
+                                                                </div>
+                                                                <div class="col-sm-4"></div>
+                                                            </div>
+
+                                                        </td>
+                                                        <td>{$site.ttt}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>活动开启时间</td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-sm-8 col-xs-12">
+                                                                    <input type="text" name="row[act_begin]" value="" class="form-control datetimepicker" data-tip="" data-rule=""  />
+                                                                </div>
+                                                                <div class="col-sm-4"></div>
+                                                            </div>
+
+                                                        </td>
+                                                        <td>{$site.act_begin}</td>
+                                                    </tr>
+                                                    </tbody>
+                                                    <tfoot>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td>
+                                                            <button type="submit" class="btn btn-success btn-embossed">确定</button>
+                                                            <button type="reset" class="btn btn-default btn-embossed">重置</button>
+                                                        </td>
+                                                        <td></td>
+                                                    </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane fade " id="email">
+                                        <div class="widget-body no-padding">
+                                            <form id="email-form" class="edit-form form-horizontal" role="form" data-toggle="validator" method="POST" action="/admin/general.config/edit">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                    <tr>
+                                                        <th width="15%">变量标题</th>
+                                                        <th width="70%">变量值</th>
+                                                        <th width="15%">变量名</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>邮件发送方式</td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-sm-8 col-xs-12">
+                                                                    <select name="row[mail_type]" class="form-control selectpicker" data-tip="选择邮件发送方式" >
+                                                                        <option value="0" >Please select</option>
+                                                                        <option value="1" selected>SMTP</option>
+                                                                        <option value="2" >Mail</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-sm-4"></div>
+                                                            </div>
+
+                                                        </td>
+                                                        <td>{$site.mail_type}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>SMTP服务器</td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-sm-8 col-xs-12">
+                                                                    <input type="text" name="row[mail_smtp_host]" value="smtp.qq.com" class="form-control" data-rule="" data-tip="错误的配置发送邮件会导致服务器超时"  />
+                                                                </div>
+                                                                <div class="col-sm-4"></div>
+                                                            </div>
+
+                                                        </td>
+                                                        <td>{$site.mail_smtp_host}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>SMTP端口</td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-sm-8 col-xs-12">
+                                                                    <input type="text" name="row[mail_smtp_port]" value="465" class="form-control" data-rule="" data-tip="(不加密默认25,SSL默认465,TLS默认587)"  />
+                                                                </div>
+                                                                <div class="col-sm-4"></div>
+                                                            </div>
+
+                                                        </td>
+                                                        <td>{$site.mail_smtp_port}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>SMTP用户名</td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-sm-8 col-xs-12">
+                                                                    <input type="text" name="row[mail_smtp_user]" value="10000" class="form-control" data-rule="" data-tip="（填写完整用户名）"  />
+                                                                </div>
+                                                                <div class="col-sm-4"></div>
+                                                            </div>
+
+                                                        </td>
+                                                        <td>{$site.mail_smtp_user}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>SMTP密码</td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-sm-8 col-xs-12">
+                                                                    <input type="text" name="row[mail_smtp_pass]" value="password" class="form-control" data-rule="" data-tip="（填写您的密码）"  />
+                                                                </div>
+                                                                <div class="col-sm-4"></div>
+                                                            </div>
+
+                                                        </td>
+                                                        <td>{$site.mail_smtp_pass}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>SMTP验证方式</td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-sm-8 col-xs-12">
+                                                                    <select name="row[mail_verify_type]" class="form-control selectpicker" data-tip="（SMTP验证方式[推荐SSL]）" >
+                                                                        <option value="0" selected>None</option>
+                                                                        <option value="1" >TLS</option>
+                                                                        <option value="2" >SSL</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-sm-4"></div>
+                                                            </div>
+
+                                                        </td>
+                                                        <td>{$site.mail_verify_type}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>发件人邮箱</td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-sm-8 col-xs-12">
+                                                                    <input type="text" name="row[mail_from]" value="10000@qq.com" class="form-control" data-rule="" data-tip=""  />
+                                                                </div>
+                                                                <div class="col-sm-4"></div>
+                                                            </div>
+
+                                                        </td>
+                                                        <td>{$site.mail_from}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>testimgtestimg</td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-sm-8 col-xs-12">
+                                                                    <div class="form-inline">
+                                                                        <input id="c-testimgtestimg" class="form-control" size="50" name="row[testimgtestimg]" type="text" value="/uploads/20180211/341244173519477d93d7f629b7a918be.jpg,/uploads/20180211/341244173519477d93d7f629b7a918be.jpg,/uploads/20180211/9f8707bcd6651df14ad06f951cbf6ce3.png,/uploads/20180211/df7d1f588ba75e00c635bc46f4621c63.png,/uploads/20180211/f8716706cfba756ace16f4f739ba2e10.png" data-tip="testimgtestimg">
+                                                                        <span><button type="button" id="plupload-testimgtestimg" class="btn btn-danger plupload" data-input-id="c-testimgtestimg" data-mimetype="image/*" data-multiple="true" data-preview-id="p-testimgtestimg"><i class="fa fa-upload"></i> 上传</button></span>
+                                                                        <span><button type="button" id="fachoose-testimgtestimg" class="btn btn-primary fachoose" data-input-id="c-testimgtestimg" data-mimetype="image/*" data-multiple="true"><i class="fa fa-list"></i> 选择</button></span>
+                                                                        <ul class="row list-inline plupload-preview" id="p-testimgtestimg"></ul>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-4"></div>
+                                                            </div>
+
+                                                        </td>
+                                                        <td>{$site.testimgtestimg}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>是</td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-sm-8 col-xs-12">
+                                                                    <label for="row[是否开始][]-key1"><input id="row[是否开始][]-key1" name="row[是否开始][]" type="checkbox" value="key1" data-tip=""  /> value1</label>
+                                                                    <label for="row[是否开始][]-key2"><input id="row[是否开始][]-key2" name="row[是否开始][]" type="checkbox" value="key2" data-tip=""  /> value2</label>
+                                                                </div>
+                                                                <div class="col-sm-4"></div>
+                                                            </div>
+
+                                                        </td>
+                                                        <td>{$site.是否开始}</td>
+                                                    </tr>
+                                                    </tbody>
+                                                    <tfoot>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td>
+                                                            <button type="submit" class="btn btn-success btn-embossed">确定</button>
+                                                            <button type="reset" class="btn btn-default btn-embossed">重置</button>
+                                                        </td>
+                                                        <td></td>
+                                                    </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane fade " id="dictionary">
+                                        <div class="widget-body no-padding">
+                                            <form id="dictionary-form" class="edit-form form-horizontal" role="form" data-toggle="validator" method="POST" action="/admin/general.config/edit">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                    <tr>
+                                                        <th width="15%">变量标题</th>
+                                                        <th width="70%">变量值</th>
+                                                        <th width="15%">变量名</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>分类类型</td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-sm-8 col-xs-12">
+                                                                    <dl class="fieldlist" rel="4" data-name="row[categorytype]">
+                                                                        <dd>
+                                                                            <ins>键名</ins>
+                                                                            <ins>键值</ins>
+                                                                        </dd>
+                                                                        <dd class="form-inline">
+                                                                            <input type="text" name="row[categorytype][field][default]" class="form-control" value="default" size="10" />
+                                                                            <input type="text" name="row[categorytype][value][default]" class="form-control" value="Default" size="40" />
+                                                                            <span class="btn btn-sm btn-danger btn-remove"><i class="fa fa-times"></i></span>
+                                                                            <span class="btn btn-sm btn-primary btn-dragsort"><i class="fa fa-arrows"></i></span>
+                                                                        </dd>
+                                                                        <dd class="form-inline">
+                                                                            <input type="text" name="row[categorytype][field][page]" class="form-control" value="page" size="10" />
+                                                                            <input type="text" name="row[categorytype][value][page]" class="form-control" value="Page" size="40" />
+                                                                            <span class="btn btn-sm btn-danger btn-remove"><i class="fa fa-times"></i></span>
+                                                                            <span class="btn btn-sm btn-primary btn-dragsort"><i class="fa fa-arrows"></i></span>
+                                                                        </dd>
+                                                                        <dd class="form-inline">
+                                                                            <input type="text" name="row[categorytype][field][article]" class="form-control" value="article" size="10" />
+                                                                            <input type="text" name="row[categorytype][value][article]" class="form-control" value="Article" size="40" />
+                                                                            <span class="btn btn-sm btn-danger btn-remove"><i class="fa fa-times"></i></span>
+                                                                            <span class="btn btn-sm btn-primary btn-dragsort"><i class="fa fa-arrows"></i></span>
+                                                                        </dd>
+                                                                        <dd class="form-inline">
+                                                                            <input type="text" name="row[categorytype][field][test]" class="form-control" value="test" size="10" />
+                                                                            <input type="text" name="row[categorytype][value][test]" class="form-control" value="Test" size="40" />
+                                                                            <span class="btn btn-sm btn-danger btn-remove"><i class="fa fa-times"></i></span>
+                                                                            <span class="btn btn-sm btn-primary btn-dragsort"><i class="fa fa-arrows"></i></span>
+                                                                        </dd>
+                                                                        <dd><a href="javascript:;" class="append btn btn-sm btn-success"><i class="fa fa-plus"></i> 追加</a></dd>
+                                                                    </dl>
+                                                                </div>
+                                                                <div class="col-sm-4"></div>
+                                                            </div>
+
+                                                        </td>
+                                                        <td>{$site.categorytype}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>配置分组</td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-sm-8 col-xs-12">
+                                                                    <dl class="fieldlist" rel="6" data-name="row[configgroup]">
+                                                                        <dd>
+                                                                            <ins>键名</ins>
+                                                                            <ins>键值</ins>
+                                                                        </dd>
+                                                                        <dd class="form-inline">
+                                                                            <input type="text" name="row[configgroup][field][email]" class="form-control" value="email" size="10" />
+                                                                            <input type="text" name="row[configgroup][value][email]" class="form-control" value="Email" size="40" />
+                                                                            <span class="btn btn-sm btn-danger btn-remove"><i class="fa fa-times"></i></span>
+                                                                            <span class="btn btn-sm btn-primary btn-dragsort"><i class="fa fa-arrows"></i></span>
+                                                                        </dd>
+                                                                        <dd class="form-inline">
+                                                                            <input type="text" name="row[configgroup][field][dictionary]" class="form-control" value="dictionary" size="10" />
+                                                                            <input type="text" name="row[configgroup][value][dictionary]" class="form-control" value="Dictionary" size="40" />
+                                                                            <span class="btn btn-sm btn-danger btn-remove"><i class="fa fa-times"></i></span>
+                                                                            <span class="btn btn-sm btn-primary btn-dragsort"><i class="fa fa-arrows"></i></span>
+                                                                        </dd>
+                                                                        <dd class="form-inline">
+                                                                            <input type="text" name="row[configgroup][field][user]" class="form-control" value="user" size="10" />
+                                                                            <input type="text" name="row[configgroup][value][user]" class="form-control" value="User" size="40" />
+                                                                            <span class="btn btn-sm btn-danger btn-remove"><i class="fa fa-times"></i></span>
+                                                                            <span class="btn btn-sm btn-primary btn-dragsort"><i class="fa fa-arrows"></i></span>
+                                                                        </dd>
+                                                                        <dd class="form-inline">
+                                                                            <input type="text" name="row[configgroup][field][exampjavascript:;le]" class="form-control" value="exampjavascript:;le" size="10" />
+                                                                            <input type="text" name="row[configgroup][value][exampjavascript:;le]" class="form-control" value="Example" size="40" />
+                                                                            <span class="btn btn-sm btn-danger btn-remove"><i class="fa fa-times"></i></span>
+                                                                            <span class="btn btn-sm btn-primary btn-dragsort"><i class="fa fa-arrows"></i></span>
+                                                                        </dd>
+                                                                        <dd class="form-inline">
+                                                                            <input type="text" name="row[configgroup][field][javascript:;]" class="form-control" value="javascript:;" size="10" />
+                                                                            <input type="text" name="row[configgroup][value][javascript:;]" class="form-control" value="javascript:;" size="40" />
+                                                                            <span class="btn btn-sm btn-danger btn-remove"><i class="fa fa-times"></i></span>
+                                                                            <span class="btn btn-sm btn-primary btn-dragsort"><i class="fa fa-arrows"></i></span>
+                                                                        </dd>
+                                                                        <dd class="form-inline">
+                                                                            <input type="text" name="row[configgroup][field][测试]" class="form-control" value="测试" size="10" />
+                                                                            <input type="text" name="row[configgroup][value][测试]" class="form-control" value="test" size="40" />
+                                                                            <span class="btn btn-sm btn-danger btn-remove"><i class="fa fa-times"></i></span>
+                                                                            <span class="btn btn-sm btn-primary btn-dragsort"><i class="fa fa-arrows"></i></span>
+                                                                        </dd>
+                                                                        <dd><a href="javascript:;" class="append btn btn-sm btn-success"><i class="fa fa-plus"></i> 追加</a></dd>
+                                                                    </dl>
+                                                                </div>
+                                                                <div class="col-sm-4"></div>
+                                                            </div>
+
+                                                        </td>
+                                                        <td>{$site.configgroup}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>字典1</td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-sm-8 col-xs-12">
+                                                                    <select name="row[item1]" class="form-control selectpicker" data-tip="" >
+                                                                        <option value="key1" selected>value1</option>
+                                                                        <option value="key2" >value2</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-sm-4"></div>
+                                                            </div>
+
+                                                        </td>
+                                                        <td>{$site.item1}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>字典2</td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-sm-8 col-xs-12">
+                                                                    <dl class="fieldlist" rel="4" data-name="row[item2]">
+                                                                        <dd>
+                                                                            <ins>键名</ins>
+                                                                            <ins>键值</ins>
+                                                                        </dd>
+                                                                        <dd class="form-inline">
+                                                                            <input type="text" name="row[item2][field][1]" class="form-control" value="1" size="10" />
+                                                                            <input type="text" name="row[item2][value][1]" class="form-control" value="范永超" size="40" />
+                                                                            <span class="btn btn-sm btn-danger btn-remove"><i class="fa fa-times"></i></span>
+                                                                            <span class="btn btn-sm btn-primary btn-dragsort"><i class="fa fa-arrows"></i></span>
+                                                                        </dd>
+                                                                        <dd class="form-inline">
+                                                                            <input type="text" name="row[item2][field][2]" class="form-control" value="2" size="10" />
+                                                                            <input type="text" name="row[item2][value][2]" class="form-control" value="超超" size="40" />
+                                                                            <span class="btn btn-sm btn-danger btn-remove"><i class="fa fa-times"></i></span>
+                                                                            <span class="btn btn-sm btn-primary btn-dragsort"><i class="fa fa-arrows"></i></span>
+                                                                        </dd>
+                                                                        <dd class="form-inline">
+                                                                            <input type="text" name="row[item2][field][3]" class="form-control" value="3" size="10" />
+                                                                            <input type="text" name="row[item2][value][3]" class="form-control" value="饭饭" size="40" />
+                                                                            <span class="btn btn-sm btn-danger btn-remove"><i class="fa fa-times"></i></span>
+                                                                            <span class="btn btn-sm btn-primary btn-dragsort"><i class="fa fa-arrows"></i></span>
+                                                                        </dd>
+                                                                        <dd class="form-inline">
+                                                                            <input type="text" name="row[item2][field][4]" class="form-control" value="4" size="10" />
+                                                                            <input type="text" name="row[item2][value][4]" class="form-control" value="用用" size="40" />
+                                                                            <span class="btn btn-sm btn-danger btn-remove"><i class="fa fa-times"></i></span>
+                                                                            <span class="btn btn-sm btn-primary btn-dragsort"><i class="fa fa-arrows"></i></span>
+                                                                        </dd>
+                                                                        <dd><a href="javascript:;" class="append btn btn-sm btn-success"><i class="fa fa-plus"></i> 追加</a></dd>
+                                                                    </dl>
+                                                                </div>
+                                                                <div class="col-sm-4"></div>
+                                                            </div>
+
+                                                        </td>
+                                                        <td>{$site.item2}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>321</td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-sm-8 col-xs-12">
+                                                                    <label for="row[321][]-key1"><input id="row[321][]-key1" name="row[321][]" type="checkbox" value="key1" data-tip="321"  /> value1</label>
+                                                                    <label for="row[321][]-key2"><input id="row[321][]-key2" name="row[321][]" type="checkbox" value="key2" data-tip="321"  /> value2</label>
+                                                                </div>
+                                                                <div class="col-sm-4"></div>
+                                                            </div>
+
+                                                        </td>
+                                                        <td>{$site.321}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>itcm1</td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-sm-8 col-xs-12">
+                                                                    <dl class="fieldlist" rel="2" data-name="row[itcm1]">
+                                                                        <dd>
+                                                                            <ins>键名</ins>
+                                                                            <ins>键值</ins>
+                                                                        </dd>
+                                                                        <dd class="form-inline">
+                                                                            <input type="text" name="row[itcm1][field][itcm1]" class="form-control" value="itcm1" size="10" />
+                                                                            <input type="text" name="row[itcm1][value][itcm1]" class="form-control" value="itcm2222" size="40" />
+                                                                            <span class="btn btn-sm btn-danger btn-remove"><i class="fa fa-times"></i></span>
+                                                                            <span class="btn btn-sm btn-primary btn-dragsort"><i class="fa fa-arrows"></i></span>
+                                                                        </dd>
+                                                                        <dd class="form-inline">
+                                                                            <input type="text" name="row[itcm1][field][itcm2]" class="form-control" value="itcm2" size="10" />
+                                                                            <input type="text" name="row[itcm1][value][itcm2]" class="form-control" value="itcm2222" size="40" />
+                                                                            <span class="btn btn-sm btn-danger btn-remove"><i class="fa fa-times"></i></span>
+                                                                            <span class="btn btn-sm btn-primary btn-dragsort"><i class="fa fa-arrows"></i></span>
+                                                                        </dd>
+                                                                        <dd><a href="javascript:;" class="append btn btn-sm btn-success"><i class="fa fa-plus"></i> 追加</a></dd>
+                                                                    </dl>
+                                                                </div>
+                                                                <div class="col-sm-4"></div>
+                                                            </div>
+
+                                                        </td>
+                                                        <td>{$site.itcm1}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>标题1</td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-sm-8 col-xs-12">
+                                                                    <select name="row[list][]" class="form-control selectpicker" data-tip="" multiple>
+                                                                        <option value="key1" >value1</option>
+                                                                        <option value="key2" >value2</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-sm-4"></div>
+                                                            </div>
+
+                                                        </td>
+                                                        <td>{$site.list}</td>
+                                                    </tr>
+                                                    </tbody>
+                                                    <tfoot>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td>
+                                                            <button type="submit" class="btn btn-success btn-embossed">确定</button>
+                                                            <button type="reset" class="btn btn-default btn-embossed">重置</button>
+                                                        </td>
+                                                        <td></td>
+                                                    </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane fade " id="user">
+                                        <div class="widget-body no-padding">
+                                            <form id="user-form" class="edit-form form-horizontal" role="form" data-toggle="validator" method="POST" action="/admin/general.config/edit">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                    <tr>
+                                                        <th width="15%">变量标题</th>
+                                                        <th width="70%">变量值</th>
+                                                        <th width="15%">变量名</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>tete</td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-sm-8 col-xs-12">
+                                                                    <input type="text" name="row[225]" value="tette" class="form-control" data-rule="" data-tip=""  />
+                                                                </div>
+                                                                <div class="col-sm-4"></div>
+                                                            </div>
+
+                                                        </td>
+                                                        <td>{$site.225}</td>
+                                                    </tr>
+                                                    </tbody>
+                                                    <tfoot>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td>
+                                                            <button type="submit" class="btn btn-success btn-embossed">确定</button>
+                                                            <button type="reset" class="btn btn-default btn-embossed">重置</button>
+                                                        </td>
+                                                        <td></td>
+                                                    </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane fade " id="example">
+                                        <div class="widget-body no-padding">
+                                            <form id="example-form" class="edit-form form-horizontal" role="form" data-toggle="validator" method="POST" action="/admin/general.config/edit">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                    <tr>
+                                                        <th width="15%">变量标题</th>
+                                                        <th width="70%">变量值</th>
+                                                        <th width="15%">变量名</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>tt</td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-sm-8 col-xs-12">
+                                                                    <input type="text" name="row[ttttt]" value="ttt" class="form-control" data-rule="ttt" data-tip="tt" tt />
+                                                                </div>
+                                                                <div class="col-sm-4"></div>
+                                                            </div>
+
+                                                        </td>
+                                                        <td>{$site.ttttt}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>tetetet</td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-sm-8 col-xs-12">
+                                                                    <select name="row[22ss]" class="form-control selectpicker" data-tip="" >
+                                                                        <option value="key1" selected>value1</option>
+                                                                        <option value="key2" >value2</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-sm-4"></div>
+                                                            </div>
+
+                                                        </td>
+                                                        <td>{$site.22ss}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td> dddd</td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-sm-8 col-xs-12">
+                                                                    <div class="form-inline">
+                                                                        <input id="c-yeye" class="form-control" size="50" name="row[yeye]" type="text" value="/uploads/20180207/50bb3b52c2e78fff4120749f8ff30901.jpg" data-tip="">
+                                                                        <span><button type="button" id="plupload-yeye" class="btn btn-danger plupload" data-input-id="c-yeye" data-mimetype="image/*" data-multiple="true" data-preview-id="p-yeye"><i class="fa fa-upload"></i> 上传</button></span>
+                                                                        <span><button type="button" id="fachoose-yeye" class="btn btn-primary fachoose" data-input-id="c-yeye" data-mimetype="image/*" data-multiple="true"><i class="fa fa-list"></i> 选择</button></span>
+                                                                        <ul class="row list-inline plupload-preview" id="p-yeye"></ul>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-4"></div>
+                                                            </div>
+
+                                                        </td>
+                                                        <td>{$site.yeye}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>png</td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-sm-8 col-xs-12">
+                                                                    <div class="form-inline">
+                                                                        <input id="c-图标i库" class="form-control" size="50" name="row[图标i库]" type="text" value="png" data-tip="">
+                                                                        <span><button type="button" id="plupload-图标i库" class="btn btn-danger plupload" data-input-id="c-图标i库" data-mimetype="image/*" data-multiple="true" data-preview-id="p-图标i库"><i class="fa fa-upload"></i> 上传</button></span>
+                                                                        <span><button type="button" id="fachoose-图标i库" class="btn btn-primary fachoose" data-input-id="c-图标i库" data-mimetype="image/*" data-multiple="true"><i class="fa fa-list"></i> 选择</button></span>
+                                                                        <ul class="row list-inline plupload-preview" id="p-图标i库"></ul>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-4"></div>
+                                                            </div>
+
+                                                        </td>
+                                                        <td>{$site.图标i库}</td>
+                                                    </tr>
+                                                    </tbody>
+                                                    <tfoot>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td>
+                                                            <button type="submit" class="btn btn-success btn-embossed">确定</button>
+                                                            <button type="reset" class="btn btn-default btn-embossed">重置</button>
+                                                        </td>
+                                                        <td></td>
+                                                    </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="addcfg">
+                                        <form id="add-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="/admin/general.config/add">
+                                            <div class="form-group">
+                                                <label for="type" class="control-label col-xs-12 col-sm-2">类型:</label>
+                                                <div class="col-xs-12 col-sm-4">
+                                                    <select name="row[type]" class="form-control selectpicker">
+                                                        <option value="string" selected>字符</option>
+                                                        <option value="text" >文本</option>
+                                                        <option value="editor" >编辑器</option>
+                                                        <option value="number" >数字</option>
+                                                        <option value="date" >日期</option>
+                                                        <option value="time" >时间</option>
+                                                        <option value="datetime" >日期时间</option>
+                                                        <option value="select" >列表</option>
+                                                        <option value="selects" >列表(多选)</option>
+                                                        <option value="image" >图片</option>
+                                                        <option value="images" >图片(多)</option>
+                                                        <option value="file" >文件</option>
+                                                        <option value="files" >文件(多)</option>
+                                                        <option value="checkbox" >复选</option>
+                                                        <option value="radio" >单选</option>
+                                                        <option value="array" >数组</option>
+                                                        <option value="custom" >Custom</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="group" class="control-label col-xs-12 col-sm-2">分组:</label>
+                                                <div class="col-xs-12 col-sm-4">
+                                                    <select name="row[group]" class="form-control selectpicker">
+                                                        <option value="basic" selected>基础配置</option>
+                                                        <option value="email" >邮件配置</option>
+                                                        <option value="dictionary" >字典配置</option>
+                                                        <option value="user" >会员配置</option>
+                                                        <option value="example" >示例分组</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="name" class="control-label col-xs-12 col-sm-2">变量名:</label>
+                                                <div class="col-xs-12 col-sm-4">
+                                                    <input type="text" class="form-control" id="name" name="row[name]" value="" data-rule="required; length(3~30); remote(general/config/check)" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="title" class="control-label col-xs-12 col-sm-2">变量标题:</label>
+                                                <div class="col-xs-12 col-sm-4">
+                                                    <input type="text" class="form-control" id="title" name="row[title]" value="" data-rule="required" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="value" class="control-label col-xs-12 col-sm-2">变量值:</label>
+                                                <div class="col-xs-12 col-sm-4">
+                                                    <input type="text" class="form-control" id="value" name="row[value]" value="" data-rule="" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group hide" id="add-content-container">
+                                                <label for="content" class="control-label col-xs-12 col-sm-2">数据列表:</label>
+                                                <div class="col-xs-12 col-sm-4">
+                            <textarea name="row[content]" id="content" cols="30" rows="5" class="form-control" data-rule="required">key1|value1
+key2|value2</textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="tip" class="control-label col-xs-12 col-sm-2">提示信息:</label>
+                                                <div class="col-xs-12 col-sm-4">
+                                                    <input type="text" class="form-control" id="tip" name="row[tip]" value="" data-rule="" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="rule" class="control-label col-xs-12 col-sm-2">校验规则:</label>
+                                                <div class="col-xs-12 col-sm-4">
+                                                    <input type="text" class="form-control" id="rule" name="row[rule]" value="" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="extend" class="control-label col-xs-12 col-sm-2">扩展属性:</label>
+                                                <div class="col-xs-12 col-sm-4">
+                                                    <textarea name="row[extend]" id="extend" cols="30" rows="5" class="form-control" data-rule=""></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-xs-12 col-sm-2"></label>
+                                                <div class="col-xs-12 col-sm-4">
+                                                    <button type="submit" class="btn btn-success btn-embossed">确定</button>
+                                                    <button type="reset" class="btn btn-default btn-embossed">重置</button>
+                                                </div>
+                                            </div>
+
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<!-- jQuery 2.2.3 -->
+<script src="../../plugins/jQuery/jquery-2.2.3.min.js"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="../../bootstrap/js/bootstrap.min.js"></script>
+<!-- Slimscroll -->
+<script src="../../plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="../../plugins/fastclick/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="../../dist/js/app.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="../../dist/js/demo.js"></script>
+<script src="../../libs/bootstrap-table/dist/bootstrap-table.js"></script>
+<script src="../../libs/bootstrap-table/dist/locale/bootstrap-table-zh-CN.js"></script>
+<!-- DataTables -->
+<script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="../../plugins/datatables/dataTables.bootstrap.min.js"></script>
+<script>
+    $(function () {
+        $("#example1").DataTable();
+        $('#example2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false
+        });
+    });
+</script>
+</html>

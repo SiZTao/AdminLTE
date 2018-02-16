@@ -1,0 +1,176 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit">
+
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="../../dist/css/ionicons.min.css">
+    <!-- DataTables -->
+    <link href="../../libs/layer/dist/theme/moon/style.css"/>
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../../css/backend.css">
+    <link href="../../libs/jquery-treegrid/bootstrap-table.css">
+    <link rel="stylesheet" href="../../css/skins/_all-skins.css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="../plugins/ie9/html5shiv.min.js"></script>
+    <script src="../plugins/ie9/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini inside-header inside-aside">
+
+<section class="content-header">
+    <h1>
+        TreeGrid表格
+        <small>演示</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Dashboard</li>
+    </ol>
+</section>
+<section>
+    <div class="content container-fluid">
+        <div class="panel panel-default panel-intro">
+            <div class="panel-heading"><div class="panel-lead"><em>TreeGrid表格</em>采用Tree结构显示菜单结构</div></div>
+            <div class="panel-body">
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane fade active in" id="one">
+                        <div class="widget-body no-padding">
+                            <div id="toolbar" class="toolbar">
+                                <a href="javascript:;" class="btn btn-primary btn-refresh" title="刷新" ><i class="fa fa-refresh"></i> </a>
+                                <a href="javascript:;" class="btn btn-success btn-add" title="添加" ><i class="fa fa-plus"></i> 添加</a>
+                                <a href="javascript:;" class="btn btn-success btn-edit btn-disabled " title="编辑"><i class="fa fa-pencil"></i> 编辑</a>
+                                <a href="javascript:;" class="btn btn-danger btn-import" title="导入" id="btn-import-file" data-url="ajax/upload" data-mimetype="csv,xls,xlsx" data-multiple="false" initialized="true" style="position: relative; z-index: 1;"><i class="fa fa-upload"></i> 导入</a>
+                                <a href="javascript:;" class="btn btn-danger btn-del btn-disabled disabled" title="删除" ><i class="fa fa-trash"></i> 删除</a>
+                                <div class="dropdown btn-group ">
+                                    <a class="btn btn-primary btn-more dropdown-toggle  " data-toggle="dropdown"><i class="fa fa-cog"></i> 更多</a>
+                                    <ul class="dropdown-menu text-left" role="menu">
+                                        <li><a class="btn btn-link btn-multi" href="javascript:;" data-params="status=normal"><i class="fa fa-eye"></i> 权限管理系统</a></li>
+                                        <li><a class="btn btn-link btn-multi" href="javascript:;" data-params="status=hidden"><i class="fa fa-eye-slash"></i> 内容管理系统</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <table id="table">
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+
+<!-- jQuery 2.2.3 -->
+<script src="../../plugins/jQuery/jquery-2.2.3.min.js"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="../../bootstrap/js/bootstrap.min.js"></script>
+<!-- Slimscroll -->
+<script src="../../plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="../../plugins/fastclick/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="../../dist/js/app.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="../../dist/js/demo.js"></script>
+<script src="../../libs/bootstrap-table/dist/bootstrap-table.js"></script>
+<script src="../../libs/jquery-treegrid/bootstrap-table.js"></script>
+<script src="../../libs/bootstrap-table/dist/extensions/treegrid/bootstrap-table-treegrid.js"></script>
+<script src="../../libs/jquery-treegrid/jquery.treegrid.min.js"></script>
+<script src="../../libs/layer/dist/layer.js"></script>
+
+<script type="text/javascript">
+    var $table = $('#table');
+    $(function() {
+        $table.bootstrapTable({
+            url: 'treegrid.json',
+            height: 560,
+            striped: true,
+            sidePagination: 'server',
+            idField: 'id',
+            search: true,
+            searchOnEnterKey: true,
+            showRefresh: true,
+            showToggle: true,
+            showColumns: true,
+            minimumCountColumns: 2,
+            showPaginationSwitch: true,
+            toolbar: '#toolbar',
+            classes: 'table table-hover  table-striped table-condensed table-bordered',
+            columns: [
+                {
+                    field: 'ck',
+                    radio: true
+                },
+                {
+                    field: 'name',
+                    title: '名称'
+                },
+                {field: 'id', title: '编号', sortable: true, align: 'center'},
+                {field: 'pid', title: '所属上级'},
+                {
+                    field: 'status',
+                    title: '状态',
+                    sortable: true,
+                    align: 'center',
+                    formatter: 'statusFormatter'
+                },
+                {
+                    field: 'permissionValue',
+                    title: '权限值'
+                }
+            ],
+            treeShowField: 'name',
+            parentIdField: 'pid',
+            onLoadSuccess: function(data) {
+                console.log('load');
+                // jquery.treegrid.js
+                $table.treegrid({
+                    initialState: 'collapsed',
+                    treeColumn: 1,
+                     expanderExpandedClass: 'glyphicon glyphicon-minus',
+                     expanderCollapsedClass: 'glyphicon glyphicon-plus',
+                    onChange: function() {
+                        $table.bootstrapTable('resetWidth');
+                    }
+                });
+            }
+            // bootstrap-table-treetreegrid.js 插件配置
+        });
+    });
+
+
+    // 格式化类型
+    function typeFormatter(value, row, index) {
+        if (value === 'menu') {
+            return '菜单';
+        }
+        if (value === 'button') {
+            return '按钮';
+        }
+        if (value === 'api') {
+            return '接口';
+        }
+        return '-';
+    }
+
+    // 格式化状态
+    function statusFormatter(value, row, index) {
+        if (value === 1) {
+            return '<span class="label label-success">正常</span>';
+        } else {
+            return '<span class="label label-default">锁定</span>';
+        }
+    }
+</script>
+
+</html>

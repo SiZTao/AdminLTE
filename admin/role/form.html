@@ -1,0 +1,177 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <!-- Pace -->
+    <link rel="stylesheet" href="../../plugins/pace-master/themes/blue/pace-theme-flash.css">
+    <script type="text/javascript" src="../../plugins/pace-master/pace.min.js"></script>
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="../../dist/css/ionicons.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="../../plugins/datatables/dataTables.bootstrap.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../../css/backend.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="../../css/skins/_all-skins.css">
+    <link href="../../libs/bootstrap-table/dist/bootstrap-table.css"/>
+    <link href="../../libs/bootstrap-validator/dist/css/bootstrapValidator.css">
+    <link href="../../libs/bootstrap-daterangepicker/css/bootstrap-datetimepicker.css">
+    <link href="../../libs/toastr/toastr.css">
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="../plugins/ie9/html5shiv.min.js"></script>
+    <script src="../plugins/ie9/respond.min.js"></script>
+    <![endif]-->
+    <!-- jQuery 2.2.3 -->
+
+    <script src="../../plugins/jQuery/jquery-2.2.3.min.js"></script>
+
+    <!-- Bootstrap 3.3.6 -->
+    <script src="../../bootstrap/js/bootstrap.min.js"></script>
+    <script src="../../libs/bootstrap-validator/dist/js/bootstrapValidator.js"></script>
+    <script src="../../libs/bootstrap-validator/dist/js/language/zh_CN.js"></script>
+    <script src="../../libs/bootstrap-daterangepicker/js/bootstrap-datetimepicker.js"></script>
+    <script src="../../libs/bootstrap-daterangepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+
+</head>
+
+<body class="inside-header inside-aside is-dialog">
+<div id="main" role="main">
+    <div class="tab-content tab-addtabs container-fluid">
+        <div id="content">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <section class="content-header hide">
+                        <h1>
+                            控制台 <small>Control panel</small>
+                        </h1>
+                    </section>
+                    <div class="content">
+                        <style>
+                            #preview {
+                                border:1px solid #ddd;padding:10px;
+                                height:500px;
+                                overflow-y: auto;
+                            }
+                            #preview img {
+                                width:100%;
+                            }
+                        </style>
+                        <form id="add-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+
+                            <div class="form-group">
+                                <label for="c-md" class="control-label col-xs-3 col-sm-2">MD文件名称:</label>
+                                <div class="col-xs-8 col-sm-8">
+                                    <input id="c-md" data-rule="required"  datatype="s5-16" errormsg="文件名称不能为空"  class="form-control" name="firstName" type="text" value="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="c-title" class="control-label col-xs-3 col-sm-2">邮箱:</label>
+                                <div class="col-xs-8 col-sm-8">
+                                    <input id="c-title" data-rule="required" required="required" class="form-control" name="email" type="email" value="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="c-type" class="control-label col-xs-3 col-sm-2">分类:</label>
+                                <div class="col-xs-8 col-sm-8">
+                                    <input id="c-type" data-rule="required" class="form-control" name="row[type]" type="text" value="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="c-sort" class="control-label col-xs-3 col-sm-2">排序:</label>
+                                <div class="col-xs-8 col-sm-8">
+                                    <input id="c-order" data-rule="required" class="form-control" name="row[order]" type="number" value="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="c-source" class="control-label col-xs-3 col-sm-2">MD源内容:</label>
+                                <div class="col-xs-8 col-sm-8">
+                                    <textarea id="c-source" data-rule="required" class="form-control" name="row[source]" rows="10"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="c-isnew" class="control-label col-xs-3 col-sm-2">新标识:</label>
+                                <div class="col-xs-8 col-sm-8">
+                                    <label for="row[isnew]-yes"><input id="row[isnew]-yes" checked="checked" name="row[isnew]" type="radio" value="1"> 是</label>
+                                    <label for="row[isnew]-no"><input id="row[isnew]-no" name="row[isnew]" type="radio" value="0"> 否</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="c-uploadtime" class="control-label col-xs-12 col-sm-2">上传时间:</label>
+                                <div class="col-xs-12 col-sm-8">
+                                    <input type="datetime" name="row[uploadtime]" value="1986-05-05 16:53:01"  id="c-uploadtime" class="form-control datetimepicker form_date" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-xs-3 col-sm-2"></label>
+                                <div class="col-xs-6 col-sm-8">
+                                    <button type="submit" class="btn btn-success">确定</button>
+                                    <button type="reset" class="btn btn-default">重置</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+
+<!-- Slimscroll -->
+<script src="../../plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="../../plugins/fastclick/fastclick.js"></script>
+<script src="../../libs/toastr/toastr.js"></script>
+<!-- AdminLTE App -->
+<script src="../../dist/js/app.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="../../dist/js/demo.js"></script>
+<script>
+    $(function () {
+
+        $("#add-form").bootstrapValidator({
+            message: 'This value is not valid',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                firstName: {
+                    message: '用户名验证失败',
+                    validators: {
+                        notEmpty: {
+                            message: '字段内容不能为空'
+                        }
+                    }
+                },
+                email: {
+                    validators: {
+                        notEmpty: {
+                            message: '邮箱地址不能为空'
+                        }
+                    }
+                }
+            }
+        });
+        $('.form_date').datetimepicker({
+            language:  'zh-CN',
+            weekStart: 1,
+            todayBtn:  1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
+        });
+    });
+</script>
+</html>

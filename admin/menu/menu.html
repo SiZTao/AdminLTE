@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit">
+
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="../../dist/css/ionicons.min.css">
+    <!-- DataTables -->
+    <link href="../../libs/layer/dist/theme/moon/style.css"/>
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../../css/backend.css">
+    <link rel="stylesheet" href="../../css/skins/_all-skins.css">
+    <link href="../../libs/bootstrap-table/dist/bootstrap-table.css"/>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="../plugins/ie9/html5shiv.min.js"></script>
+    <script src="../plugins/ie9/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini inside-header inside-aside">
+
+<section class="content-header">
+    <h1>
+        DataTables
+        <small>演示</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Dashboard</li>
+    </ol>
+</section>
+<section>
+    <div class="content">
+        <div class="panel panel-default panel-intro">
+            <div class="panel-heading"><div class="panel-lead"><em>角色组</em>角色组可以有多个,角色有上下级层级关系,如果子角色有角色组和管理员的权限则可以派生属于自己组别的下级角色组或管理员</div></div>
+            <div class="panel-body">
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane fade active in" id="one">
+                        <div class="widget-body no-padding">
+                            <div id="toolbar" class="toolbar">
+                                <a href="javascript:;" class="btn btn-primary btn-refresh" title="刷新" ><i class="fa fa-refresh"></i> </a>
+                                <a href="javascript:;" class="btn btn-success btn-add" title="添加" ><i class="fa fa-plus"></i> 添加</a>
+                                <a href="javascript:;" class="btn btn-danger btn-del btn-disabled disabled" title="删除" ><i class="fa fa-trash"></i> 删除</a>                    </div>
+
+                            <table id="menuTable">
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+
+<!-- jQuery 2.2.3 -->
+<script src="../../plugins/jQuery/jquery-2.2.3.min.js"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="../../bootstrap/js/bootstrap.min.js"></script>
+<!-- Slimscroll -->
+<script src="../../plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="../../plugins/fastclick/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="../../dist/js/app.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="../../dist/js/demo.js"></script>
+<script src="../../libs/bootstrap-table/dist/bootstrap-table.js"></script>
+<script src="../../libs/bootstrap-table/dist/locale/bootstrap-table-zh-CN.js"></script>
+
+<script src="../../libs/layer/dist/layer.js"></script>
+<script>
+    var $table = $("#menuTable");
+    $(function () {
+        // bootstrap table初始化
+        // http://bootstrap-table.wenzhixin.net.cn/zh-cn/documentation/
+        $table.bootstrapTable({
+            url: 'data1.json',
+            height: 500,
+            striped: true,
+            search: true,
+            searchOnEnterKey: true,
+            showRefresh: true,
+            showToggle: true,
+            showColumns: true,
+            minimumCountColumns: 2,
+            showPaginationSwitch: true,
+            clickToSelect: true,
+            detailView: true,
+            detailFormatter: 'detailFormatter',
+            pagination: true,
+            paginationLoop: false,
+            classes: 'table table-hover  table-striped table-condensed table-bordered',
+            //sidePagination: 'server',
+            //silentSort: false,
+            smartDisplay: false,
+            idField: 'id',
+            sortName: 'id',
+            sortOrder: 'desc',
+            escape: true,
+            searchOnEnterKey: true,
+            idField: 'systemId',
+            maintainSelected: true,
+            toolbar: '#toolbar',
+            columns: [
+                {field: 'state', checkbox: true},
+                {field: 'id', title: '编号', sortable: true, halign: 'center'},
+                {field: 'username', title: '账号', sortable: true, halign: 'center'},
+                {field: 'password', title: '密码', sortable: true, halign: 'center'},
+                {field: 'name', title: '姓名', sortable: true, halign: 'center'},
+                {field: 'sex', title: '性别', sortable: true, halign: 'center'},
+                {field: 'age', title: '年龄', sortable: true, halign: 'center'},
+                {field: 'phone', title: '手机', sortable: true, halign: 'center'},
+                {field: 'email', title: '邮箱', sortable: true, halign: 'center'},
+                {field: 'address', title: '地址', sortable: true, halign: 'center'},
+                {field: 'remark', title: '备注', sortable: true, halign: 'center'},
+                {field: 'action', title: '操作', halign: 'center', align: 'center', formatter: 'actionFormatter', events: 'actionEvents', clickToSelect: false}
+            ]
+        }).on('all.bs.table', function (e, name, args) {
+            $('[data-toggle="tooltip"]').tooltip();
+            $('[data-toggle="popover"]').popover();
+        });
+
+    });
+    function actionFormatter(value, row, index) {
+        return [
+            '<a class="like" href="javascript:void(0)" data-toggle="tooltip" title="Like"><i class="glyphicon glyphicon-heart"></i></a>　',
+            '<a class="edit ml10" href="javascript:void(0)" data-toggle="tooltip" title="Edit"><i class="glyphicon glyphicon-edit"></i></a>　',
+            '<a class="remove ml10" href="javascript:void(0)" data-toggle="tooltip" title="Remove"><i class="glyphicon glyphicon-remove"></i></a>'
+        ].join('');
+    }
+
+    window.actionEvents = {
+        'click .like': function (e, value, row, index) {
+            alert('You click like icon, row: ' + JSON.stringify(row));
+            console.log(value, row, index);
+        },
+        'click .edit': function (e, value, row, index) {
+            alert('You click edit icon, row: ' + JSON.stringify(row));
+            console.log(value, row, index);
+        },
+        'click .remove': function (e, value, row, index) {
+            alert('You click remove icon, row: ' + JSON.stringify(row));
+            console.log(value, row, index);
+        }
+    };
+    function detailFormatter(index, row) {
+        var html = [];
+        $.each(row, function (key, value) {
+            html.push('<p><b>' + key + ':</b> ' + value + '</p>');
+        });
+        return html.join('');
+    }
+    // 新增
+    function createAction() {
+        $.confirm({
+            type: 'dark',
+            animationSpeed: 300,
+            title: '新增系统',
+            content: $('#createDialog').html(),
+            buttons: {
+                confirm: {
+                    text: '确认',
+                    btnClass: 'waves-effect waves-button',
+                    action: function () {
+                        $.alert('确认');
+                    }
+                },
+                cancel: {
+                    text: '取消',
+                    btnClass: 'waves-effect waves-button'
+                }
+            }
+        });
+    }
+
+    $(".btn-add").click(function () {
+        layer.open({
+            type: 2,
+            title: '添加角色',
+            shadeClose: true,
+            shade: 0.8,
+            maxmin:true,
+            area: ['760px', '60%'],
+            btnAlign: 'c',
+            btn: ['提交', '取消'],
+            content: 'form.html' //iframe的url
+        });
+    });
+
+</script>
+</html>
