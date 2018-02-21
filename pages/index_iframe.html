@@ -13,7 +13,11 @@
     <link rel="stylesheet" href="../css/backend.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="../css/skins/_all-skins.css">
+
+    <link href="../../libs/toastr/toastr.css">
 
     <!--http://aimodu.org:7777/admin/index_iframe.html?q=audio&search=#-->
     <style type="text/css">
@@ -30,7 +34,7 @@
 </head>
 <body class="hold-transition skin-green  sidebar-mini fixed"  id="tabs">
 
-<div class="wrapper">
+<div class="wrapper" id="mainApp" v-cloak>
 
     <header class="main-header">
         <!-- Logo -->
@@ -49,7 +53,25 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-
+            <div id="nav" class="pull-left" style="width: 1238px;">
+                <ul class="nav nav-tabs nav-addtabs disable-top-badge" >
+                    <li role="presentation" id="tab_1" class="" >
+                        <a  href="javascript:;"  @click="changeApp" >
+                            <i class="fa fa-dashboard"></i>
+                            <span>权限管理系统</span> <span class="pull-right-container"> <small class="label pull-right bg-blue">hot</small></span></a>
+                    </li>
+                    <li role="presentation" id="tab_2" class="">
+                        <a href="#" @click="changeApp">
+                            <i class="fa fa-dashboard"></i>
+                            <span>内容管理系统</span> <span class="pull-right-container"> <small class="label pull-right bg-blue">hot</small></span></a>
+                    </li>
+                    <li role="presentation" id="tab_3" class="">
+                        <a href="#" @click="changeApp">
+                            <i class="fa fa-dashboard"></i>
+                            <span>{{menusList}}</span> <span class="pull-right-container"> <small class="label pull-right bg-blue">hot</small></span></a>
+                    </li>
+                </ul>
+            </div>
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
                     <!-- Messages: style can be found in dropdown.less-->
@@ -337,8 +359,13 @@
             <!-- sidebar menu: : style can be found in sidebar.less -->
                 <ul class="sidebar-menu" style="cursor:pointer;">
                     <li class="header">站内导航</li>
-                    <li class=" active"><a href="dashboard.html" addtabs="11180" url="dashboard.html" py="kzt" pinyin="kongzhitai"><i class="fa fa-dashboard"></i> <span>控制台</span> <span class="pull-right-container"> <small class="label pull-right bg-blue">hot</small></span></a> </li>
-               </ul>
+                    <li class=" active">
+                        <a href="#" addtabs="11180" url="dashboard.html" py="kzt" pinyin="kongzhitai">
+                            <i class="fa fa-dashboard"></i> <span>{{menusList}}</span> <span class="pull-right-container">
+                            <small class="label pull-right bg-blue">hot</small></span></a>
+                    </li>
+
+                </ul>
 
         </section>
         <!-- /.sidebar -->
@@ -400,7 +427,7 @@
         <div class="tab-content">
             <!-- Home tab content -->
             <div class="tab-pane" id="control-sidebar-home-tab">
-                <h3 class="control-sidebar-heading">Recent Activity</h3>
+                <h3 class="control-sidebar-heading">当前活动</h3>
                 <ul class="control-sidebar-menu">
                     <li>
                         <a href="javascript:void(0)">
@@ -449,7 +476,7 @@
                 </ul>
                 <!-- /.control-sidebar-menu -->
 
-                <h3 class="control-sidebar-heading">Tasks Progress</h3>
+                <h3 class="control-sidebar-heading">任务进程</h3>
                 <ul class="control-sidebar-menu">
                     <li>
                         <a href="javascript:void(0)">
@@ -510,8 +537,7 @@
             <!-- Settings tab content -->
             <div class="tab-pane" id="control-sidebar-settings-tab">
                 <form method="post">
-                    <h3 class="control-sidebar-heading">General Settings</h3>
-
+                    <h3 class="control-sidebar-heading">页面布局</h3>
                     <div class="form-group">
                         <label class="control-sidebar-subheading">
                             Report panel usage
@@ -586,13 +612,15 @@
 <!-- ./wrapper -->
 
 <!-- jQuery 2.2.3 -->
-<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="../libs/jquery/jquery-2.2.3.min.js"></script>
 <!-- Bootstrap 3.3.6 -->
-<script src="../bootstrap/js/bootstrap.min.js"></script>
+<script src="../libs/bootstrap/js/bootstrap.min.js"></script>
 <!-- Slimscroll -->
-<script src="../plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<script src="../libs/slimScroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
-<script src="../plugins/fastclick/fastclick.js"></script>
+<script src="../libs/fastclick/fastclick.js"></script>
+<script src="../libs/toastr/toastr.js"></script>
+
 <!-- AdminLTE App -->
 <script src="../dist/js/app.js"></script>
 <!-- AdminLTE for demo purposes -->
@@ -600,11 +628,7 @@
 
 <!--tabs-->
 <script src="../dist/js/app_iframe.js"></script>
-
-<!--<script src="../dist/js/jquery.blockui.min.js"></script>
-<script src="../dist/js/appx.js"></script>
-<script src="../dist/js/bootstrap-tab.js"></script>
-<script src="../dist/js/sidebarMenu.js"></script>-->
+<script src="../js/vue.min.js"></script>
 
 <script type="text/javascript">
     /**
@@ -767,6 +791,34 @@
 
     });
 </script>
+<script>
+    //生成菜单
+    var menuItem = Vue.extend({
+        name:'menu-item',
+        props:{item:{}},
+        template:[
 
+        ].join('')
+    });
+    //注册菜单组件
+    Vue.component('menuItem',menuItem);
+
+    var vm = new Vue({
+        el:'#mainApp',
+        data:{
+            menusList:"Message"
+        },
+        methods:{
+            changeApp:function (event) {
+                toastr.info("更改系统");
+                vm.menusList="权限管理";
+            },
+
+        },
+        create:function (event) {
+            this.vm.menusList="系统信息";
+        }
+    });
+</script>
 </body>
 </html>
